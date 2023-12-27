@@ -6,7 +6,7 @@ export const api = axios.create({
 
 export const createQuestion = async (quizQuestion) => {
   try {
-    const response = await api.post("/create-new-question", quizQuestion);
+    const response = await api.post(`/create-new-question`, quizQuestion);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -15,7 +15,7 @@ export const createQuestion = async (quizQuestion) => {
 
 export const getAllQuestion = async () => {
   try {
-    const response = await api.get("/all-questions");
+    const response = await api.get(`/all-questions`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -26,7 +26,7 @@ export const getAllQuestion = async () => {
 export const fetchQuizForUser = async (number, subject) => {
   try {
     const reponse = await api.get(
-      "/quiz/fetch-questions-for-user?numOfQuestions=${number}&subject=${subject}"
+      `/quiz/fetch-questions-for-user?numOfQuestions=${number}&subject=${subject}`
     );
     return response.data;
   } catch (error) {
@@ -37,7 +37,7 @@ export const fetchQuizForUser = async (number, subject) => {
 
 export const getSubjects = async () => {
   try {
-    const response = await api.get("/subjects");
+    const response = await api.get(`/subjects`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -46,7 +46,7 @@ export const getSubjects = async () => {
 
 export const updateQuestion = async (id, question) => {
   try {
-    const response = await api.put("/question/${id}/update", question);
+    const response = await api.put(`/question/${id}/update`, question);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -55,7 +55,7 @@ export const updateQuestion = async (id, question) => {
 
 export const getQuestionById = async (id) => {
   try {
-    const response = await api.get("/question/${id}");
+    const response = await api.get(`/question/${id}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -64,7 +64,7 @@ export const getQuestionById = async (id) => {
 
 export const deleteQuestion = async (id) => {
   try {
-    const response = await api.delete("/question/${id}/delete");
+    const response = await api.delete(`/question/${id}/delete`);
   } catch (error) {
     console.error(error);
   }
