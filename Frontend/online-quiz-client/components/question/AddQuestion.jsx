@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { getSubjects } from "../../utils/QuizService";
 
 const AddQuestion = () => {
-  const [question, setQuestion] = seState("");
+  const [question, setQuestion] = useState("");
   const [questionType, setQuestionType] = useState("single");
   const [choices, setChoices] = useState([""]);
   const [correctAnswers, setCorrectAnswers] = useState([""]);
@@ -125,19 +126,19 @@ const AddQuestion = () => {
                       htmlFor="new-subject"
                       className="form-label text-info"
                     >
-                      Add a New Subject
+                      Add New Subject
                     </label>
                     <input
                       type="text"
                       id="new-subject"
                       value={newSubject}
-                      onChange={(e) => setNewSubject(e.target.value)}
+                      onChange={(event) => setNewSubject(event.target.value)}
                       className="form-control"
                     />
                     <button
                       type="button"
-                      className="btn btn-outline-primary btn-sm mt-2"
                       onClick={handleAddSubject}
+                      className="btn btn-outline-primary mt-2"
                     >
                       Add Subject
                     </button>
@@ -145,7 +146,7 @@ const AddQuestion = () => {
                 )}
 
                 <div className="mb-2">
-                  <label htmlFor="question" className="form-label-info">
+                  <label htmlFor="question" className="form-label text-info">
                     Question
                   </label>
                   <textarea
@@ -158,7 +159,10 @@ const AddQuestion = () => {
                   ></textarea>
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="question-type" className="form-label-info">
+                  <label
+                    htmlFor="question-type"
+                    className="form-label text-info"
+                  >
                     Question Type
                   </label>
                   <select
@@ -173,7 +177,7 @@ const AddQuestion = () => {
                   </select>
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="choices" className="form-label-info">
+                  <label htmlFor="choices" className="form-label text-info">
                     Choices
                   </label>
                   {choices.map((choice, index) => (
@@ -189,7 +193,7 @@ const AddQuestion = () => {
                       <button
                         type="button"
                         onClick={() => handleRemoveChoice(index)}
-                        className="btn btn-outlin-danger btn-sm"
+                        className="btn btn-outline-danger btn-sm"
                       >
                         Remove
                       </button>
@@ -198,7 +202,7 @@ const AddQuestion = () => {
                   <button
                     type="button"
                     onClick={handleAddChoice}
-                    className="btn btn-outlin-primary btn-sm"
+                    className="btn btn-outline-primary btn-sm"
                   >
                     Add Choice
                   </button>
@@ -226,7 +230,7 @@ const AddQuestion = () => {
                       Correct Answer (s)
                     </label>
                     {correctAnswers.map((answer, index) => (
-                      <div>
+                      <div key={index} className="d-flex mb-2">
                         <input
                           type="text"
                           value={answer}
@@ -239,7 +243,7 @@ const AddQuestion = () => {
                         {index > 0 && (
                           <button
                             type="button"
-                            className="btn btn=-danger btn-sm"
+                            className="btn btn-danger btn-sm"
                             onClick={() => handleRemoveCorrectAnswer(index)}
                           >
                             Remove
