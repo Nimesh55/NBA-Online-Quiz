@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getSubjects } from "../../../utils/QuizService";
 
@@ -10,12 +10,12 @@ const QuizStepper = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchSubjects();
+    fetchSubjectData();
   }, []);
 
-  const fetchSubjects = async () => {
+  const fetchSubjectData = async () => {
     try {
-      const allSubjects = await getSubjects;
+      const allSubjects = await getSubjects();
       setSubjects(allSubjects);
     } catch (error) {
       console.error(error);
@@ -29,18 +29,18 @@ const QuizStepper = () => {
           state: { selectedNumOfQuestion, selectedSubject },
         });
       } else {
-        alert("Please selecta subject and number of questiions to be answered");
+        alert("Please select a subject and number of questiions");
       }
     } else {
       setCurrentStep((prevStep) => prevStep + 1);
     }
   };
 
-  const handlePreviousStep = () => {
+  const handlePrevious = () => {
     setCurrentStep((prevStep) => prevStep - 1);
   };
 
-  const handleSelectedSubject = (e) => {
+  const handleSubjectChange = (e) => {
     setSelectedSubject(e.target.value);
   };
 
@@ -53,13 +53,13 @@ const QuizStepper = () => {
       case 1:
         return (
           <div>
-            <h3 className="text-info mb-2">I want to a quiz on :</h3>
+            <h3 className="text-info mb-2">I want to take a quiz on :</h3>
             <select
               className="form-select"
               value={selectedSubject}
-              onChange={handleSelectedSubject}
+              onChange={handleSubjectChange}
             >
-              <option>Select a Subject..</option>
+              <option value="">Select a Subject..</option>
               {subjects.map((subject) => {
                 <option key={subject} value={subject}>
                   {subject}
@@ -122,7 +122,7 @@ const QuizStepper = () => {
           {renderStepContent()}
           <div>
             {currentStep > 1 && (
-              <button className="btn btn-primary" onClick={handlePreviousStep}>
+              <button className="btn btn-primary" onClick={handlePrevious}>
                 Previous
               </button>
             )}
