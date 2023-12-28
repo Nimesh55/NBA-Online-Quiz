@@ -5,7 +5,7 @@ import { getSubjects } from "../../../utils/QuizService";
 const QuizStepper = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedSubject, setSelectedSubject] = useState("");
-  const [selectedNumOfQuestion, setSelectedNumOfQuestions] = useState("");
+  const [selectedNumOfQuestions, setSelectedNumOfQuestions] = useState("");
   const [subjects, setSubjects] = useState([]);
   const navigate = useNavigate();
 
@@ -24,9 +24,9 @@ const QuizStepper = () => {
 
   const handleNext = () => {
     if (currentStep === 3) {
-      if (selectedSubject && selectedNumOfQuestion) {
+      if (selectedSubject && selectedNumOfQuestions) {
         navigate("/take-quiz", {
-          state: { selectedNumOfQuestion, selectedSubject },
+          state: { selectedNumOfQuestions, selectedSubject },
         });
       } else {
         alert("Please select a subject and number of questiions");
@@ -60,11 +60,11 @@ const QuizStepper = () => {
               onChange={handleSubjectChange}
             >
               <option value="">Select a Subject..</option>
-              {subjects.map((subject) => {
+              {subjects.map((subject) => (
                 <option key={subject} value={subject}>
                   {subject}
-                </option>;
-              })}
+                </option>
+              ))}
             </select>
           </div>
         );
@@ -77,7 +77,7 @@ const QuizStepper = () => {
             <input
               type="number"
               className="form-control"
-              value={selectedNumOfQuestion}
+              value={selectedNumOfQuestions}
               onChange={handleNumOfQuestionChange}
               placeholder="Enter number of questions"
             />
@@ -89,7 +89,7 @@ const QuizStepper = () => {
           <div>
             <h2>Confirmation</h2>
             <p>Subject: {selectedSubject}</p>
-            <p>Number of Question: {selectedNumOfQuestion}</p>
+            <p>Number of Question: {selectedNumOfQuestions}</p>
           </div>
         );
       default:
@@ -122,18 +122,21 @@ const QuizStepper = () => {
           {renderStepContent()}
           <div>
             {currentStep > 1 && (
-              <button className="btn btn-primary" onClick={handlePrevious}>
+              <button
+                className="btn btn-primary mt-2 me-1"
+                onClick={handlePrevious}
+              >
                 Previous
               </button>
             )}
 
             {currentStep < 3 && (
               <button
-                className="btn btn-primary"
+                className="btn btn-primary mt-2"
                 onClick={handleNext}
                 disabled={
                   (currentStep === 1 && !selectedSubject) ||
-                  (currentStep === 2 && !selectedNumOfQuestion)
+                  (currentStep === 2 && !selectedNumOfQuestions)
                 }
               >
                 Next
@@ -141,7 +144,7 @@ const QuizStepper = () => {
             )}
 
             {currentStep === 3 && (
-              <button className="btn btn-success" onClick={handleNext}>
+              <button className="btn btn-success mt-2" onClick={handleNext}>
                 Start Quiz
               </button>
             )}

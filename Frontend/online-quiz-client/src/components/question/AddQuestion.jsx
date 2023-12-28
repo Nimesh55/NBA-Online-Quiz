@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getSubjects } from "../../../utils/QuizService";
+import { getSubjects, createQuestion } from "../../../utils/QuizService";
+import { Link } from "react-router-dom";
 
 const AddQuestion = () => {
   const [question, setQuestion] = useState("");
@@ -26,7 +27,7 @@ const AddQuestion = () => {
   const handleAddChoice = async () => {
     const lastChoice = choices[choices.length - 1];
     const lastChoiceLetter = lastChoice ? lastChoice.charAt(0) : "A";
-    const newChoiceLetter = string.fromCharCode(
+    const newChoiceLetter = String.fromCharCode(
       lastChoiceLetter.charCodeAt(0) + 1
     );
     const newChoice = `${newChoiceLetter}.`;
@@ -271,9 +272,12 @@ const AddQuestion = () => {
                   >
                     Save Question
                   </button>
-                  {/* <Link to={""} className="btn btn-outline-success mr-2">
-                        Save Question
-                    </Link> */}
+                  <Link
+                    to={"/all-quizzes"}
+                    className="btn btn-outline-success mr-2"
+                  >
+                    Back to Existing Questions
+                  </Link>
                 </div>
               </form>
             </div>

@@ -19,11 +19,9 @@ public class Question {
     @NotBlank
     private String questionType;
 
-    @NotBlank
     @ElementCollection
     private List<String> choices;
 
-    @NotBlank
     @ElementCollection
     private List<String> correctAnswers;
 

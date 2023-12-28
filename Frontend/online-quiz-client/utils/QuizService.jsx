@@ -6,14 +6,14 @@ export const api = axios.create({
 
 export const createQuestion = async (quizQuestion) => {
   try {
-    const response = await api.post(`/create-new-question`, quizQuestion);
+    const response = await api.post("/create-new-question", quizQuestion);
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const getAllQuestion = async () => {
+export const getAllQuestions = async () => {
   try {
     const response = await api.get(`/all-questions`);
     return response.data;
@@ -25,7 +25,8 @@ export const getAllQuestion = async () => {
 
 export const fetchQuizForUser = async (number, subject) => {
   try {
-    const reponse = await api.get(
+    console.log("==============================================", "Check");
+    const response = await api.get(
       `/quiz/fetch-questions-for-user?numOfQuestions=${number}&subject=${subject}`
     );
     return response.data;
@@ -54,6 +55,7 @@ export const updateQuestion = async (id, question) => {
 };
 
 export const getQuestionById = async (id) => {
+  console.log("I am in");
   try {
     const response = await api.get(`/question/${id}`);
     return response.data;

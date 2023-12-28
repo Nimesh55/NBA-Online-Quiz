@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { deleteQuestion, getAllQuestion } from "../../../utils/QuizService";
+import { deleteQuestion, getAllQuestions } from "../../../utils/QuizService";
+import { FaPlus } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const GetAllQuiz = () => {
   const [questions, setQuestions] = useState([
@@ -15,15 +17,15 @@ const GetAllQuiz = () => {
 
   const fetchAllQuestion = async () => {
     try {
-      const data = await GetAllQuestions();
-      setQuestion(data);
+      const data = await getAllQuestions();
+      setQuestions(data);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDeleteQuestion = async (id) => {
     try {
       await deleteQuestion(id);
       setQuestions(questions.filter((question) => question.id !== id));
@@ -33,7 +35,8 @@ const GetAllQuiz = () => {
       console.error(error);
     }
     setTimeout(() => {
-      setDeleteSuccessMessage(""), 4000;
+      setIsQuestionDeleted(false);
+      setDeleteSuccessMessage(""), 10000;
     });
   };
 
@@ -48,38 +51,45 @@ const GetAllQuiz = () => {
           <h4> All Quiz Questions</h4>
         </div>
         <div className="col-md-4 d-flex justify-content-end">
-          {/* Todo: add a link to navigate to add New question form */}
+          <Link to={"/create-quiz"}>
+            <FaPlus /> Add Question
+          </Link>
         </div>
       </div>
       <hr />
       {isQuestionDeleted && (
         <div className="alert alert-success">{deleteSuccessMessage}</div>
       )}
-      {questions.map((question, index) => {
-        <div>
-          <h4 style={{ color: "GrayText" }}>{`${index + 1}. ${
-            question.question
-          }`}</h4>
-
+      {questions.map((question, index) => (
+        <div key={question.id}>
+          <pre>
+            <h4 style={{ color: "GrayText" }}>{`${index + 1}. ${
+              question.question
+            }`}</h4>
+          </pre>
           <ul>
-            {question.choices.map((choice, index) => {
-              <li key={index}>{choice}</li>;
-            })}
+            {question.choices.map((choice, index) => (
+              <li key={index}>{choice}</li>
+            ))}
           </ul>
           <p className="text-success">
             Correct Answer: {question.correctAnswers}
           </p>
           <div className="btn-group mb-4">
-            {/* Todo: add a link to navigate to add New question form */}
+            <Link to={`/update-quiz/${question.id}`}>
+              <button className="btn btn-sm btn-outline-warning mr-2">
+                Edit Question
+              </button>
+            </Link>
             <button
-              className="btn btn-outline-danger btn-sm"
-              onClick={() => handleDelete(question.id)}
+              className="btn btn-sm btn-outline-danger"
+              onClick={() => handleDeleteQuestion(question.id)}
             >
               Delete Question
             </button>
           </div>
-        </div>;
-      })}
+        </div>
+      ))}
     </section>
   );
 };

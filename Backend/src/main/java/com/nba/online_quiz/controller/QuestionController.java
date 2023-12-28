@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:5173")
 @RestController
 @RequestMapping("/api/quizzes")
 @RequiredArgsConstructor
@@ -28,7 +28,7 @@ public class QuestionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdQuestion);
     }
 
-    @GetMapping("/all-question")
+    @GetMapping("/all-questions")
     public ResponseEntity<List<Question>> getAllQuestions(){
         List<Question> questions = questionService.getAllQuestions();
         return ResponseEntity.ok(questions);

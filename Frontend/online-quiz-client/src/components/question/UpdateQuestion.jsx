@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { getQuestionById, updateQuestion } from "../../../utils/QuizService";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const UpdateQuestion = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [question, setQuestion] = useState("");
   const [choices, setChoices] = useState([""]);
   const [correctAnswers, setCorrectAnswers] = useState([""]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const { id } = useParams();
 
   useEffect(() => {
     fetchQuestion();
@@ -17,12 +17,18 @@ const UpdateQuestion = () => {
   const fetchQuestion = async () => {
     try {
       const questionToUpadate = await getQuestionById(id);
+      console.log(questionToUpadate);
       if (questionToUpadate) {
         setQuestion(questionToUpadate.question);
         setChoices(questionToUpadate.choices);
         setCorrectAnswers(questionToUpadate.correctAnswers);
       }
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+        console.log(question);
+        console.log(choices);
+        console.log(correctAnswers);
+      }, 10000);
     } catch (error) {
       console.error(error);
     }
@@ -43,6 +49,7 @@ const UpdateQuestion = () => {
   };
 
   const handleQuestionUpdate = async (e) => {
+    e.preventDefault();
     try {
       const updatedQuestion = {
         question,
@@ -54,7 +61,7 @@ const UpdateQuestion = () => {
       };
 
       await updateQuestion(id, updatedQuestion);
-      //   Todo: navigate back to all question page
+      navigate("/all-quizzes");
     } catch (error) {
       console.error(error);
     }
@@ -63,6 +70,8 @@ const UpdateQuestion = () => {
   if (isLoading) {
     return <p>Loading...</p>;
   }
+
+  console.log("===================", choices);
 
   return (
     <section className="container">
@@ -89,15 +98,15 @@ const UpdateQuestion = () => {
             <label className="text-info" htmlFor="choices">
               Choices:
             </label>
-            {choices.map((choice, index) => {
+            {choices.map((choice, index) => (
               <input
                 key={index}
                 className="form-control mb-4"
                 type="text"
                 value={choice}
                 onChange={(e) => handleChoiceChange(index, e)}
-              />;
-            })}
+              />
+            ))}
           </div>
 
           <div className="form-group">
@@ -116,7 +125,9 @@ const UpdateQuestion = () => {
             <button type="submit" className="btn btn-sm btn-outline-warning">
               Update Question
             </button>
-            {/* Todo: add a link back to all questions */}
+            <Link to={"/all-quizzes"} className="btn btn-outline-primary ml-2">
+              Back to all questions
+            </Link>
           </div>
         </form>
       </div>
