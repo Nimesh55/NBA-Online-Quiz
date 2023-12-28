@@ -5,7 +5,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow sticky-top">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to={"/"}>
-          Online Quiz App
+          Quiz Online App
         </NavLink>
         <button
           className="navbar-toggler"
