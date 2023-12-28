@@ -16,14 +16,17 @@ const QuizResult = () => {
   };
 
   return (
-    <section className="container mt-5">
-      <h3>Your Quiz Result Summary</h3>
+    <section
+      className="container mt-5 p-5"
+      style={{ background: "white", borderRadius: "20px" }}
+    >
+      <h3 className="text-info">Your Quiz Result Summary</h3>
       <hr />
-      <h4>Subject: {selectedSubject}</h4>
-      <h5>
+      <h4 class="text-secondary">Subject: {selectedSubject}</h4>
+      <h5 class="text-body">
         You answered {totalScores} out of {numOfQuestions} questions correctly.
       </h5>
-      <p>Your total score is {percentage} %.</p>
+      <p class="text-success">Your total score is {percentage} %.</p>
       <button className="btn btn-primary btn-sm" onClick={handleRetakeQuiz}>
         Retake this quiz
       </button>

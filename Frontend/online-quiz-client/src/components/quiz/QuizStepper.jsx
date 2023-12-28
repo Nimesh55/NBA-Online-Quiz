@@ -102,12 +102,12 @@ const QuizStepper = () => {
     return (
       <div className="progress">
         <div
-          className="progress-bar"
+          className="progress-bar progress-bar-striped bg-primary"
           role="progressbar"
-          style={{ width: `${progress}` }}
+          style={{ width: `${progress}%` }}
           aria-valuenow={progress}
         >
-          Step (currentStep)
+          Step {currentStep}
         </div>
       </div>
     );
@@ -115,8 +115,10 @@ const QuizStepper = () => {
 
   return (
     <section className="mt-5">
-      <h3 style={{ color: "GrayText" }}>Welcome to Online Quiz</h3>
+      <h2 style={{ color: "#38419D" }}>Welcome to Online Quiz</h2>
+      <br />
       {renderPregressBar()}
+      <br />
       <div className="card">
         <div className="card-body">
           {renderStepContent()}

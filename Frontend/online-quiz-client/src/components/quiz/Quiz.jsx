@@ -16,9 +16,6 @@ const Quiz = () => {
   const navigate = useNavigate();
   const { selectedSubject, selectedNumOfQuestions } = location.state;
 
-  console.log(location.state);
-  console.log(selectedSubject, selectedNumOfQuestions);
-
   useEffect(() => {
     fetchQuizData();
   }, []);
@@ -95,7 +92,6 @@ const Quiz = () => {
           id: questionId,
           answer: newAnswer,
         };
-        console.log(updatedAnswers);
         return updatedAnswers;
       } else {
         const newAnswer = { id: questionId, answer: [selectedAnswer] };
@@ -136,7 +132,6 @@ const Quiz = () => {
   const handleNextQuestion = () => {
     if (currentQuestionIndex < quizQuestions.length - 1) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      console.log(selectedAnswers);
     } else {
       handleSubmit();
     }
@@ -148,10 +143,11 @@ const Quiz = () => {
     }
   };
 
-  console.log(quizQuestions);
-
   return (
-    <div className="p-5">
+    <div
+      className="p-5 mt-5"
+      style={{ background: "white", borderRadius: "10px", opacity: "93%" }}
+    >
       <h3 className="text-info">
         Question {quizQuestions.length > 0 ? currentQuestionIndex + 1 : 0} of{" "}
         {quizQuestions.length}

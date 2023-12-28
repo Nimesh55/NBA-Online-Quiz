@@ -25,7 +25,6 @@ export const getAllQuestions = async () => {
 
 export const fetchQuizForUser = async (number, subject) => {
   try {
-    console.log("==============================================", "Check");
     const response = await api.get(
       `/quiz/fetch-questions-for-user?numOfQuestions=${number}&subject=${subject}`
     );
@@ -55,7 +54,6 @@ export const updateQuestion = async (id, question) => {
 };
 
 export const getQuestionById = async (id) => {
-  console.log("I am in");
   try {
     const response = await api.get(`/question/${id}`);
     return response.data;
