@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getSubjects } from "../../utils/QuizService";
+import { getSubjects } from "../../../utils/QuizService";
 
 const AddQuestion = () => {
   const [question, setQuestion] = useState("");

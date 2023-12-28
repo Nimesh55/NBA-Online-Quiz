@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getQuestionById, updateQuestion } from "../../utils/QuizService";
+import { getQuestionById, updateQuestion } from "../../../utils/QuizService";
 import { useParams } from "react-router-dom";
 
 const UpdateQuestion = () => {

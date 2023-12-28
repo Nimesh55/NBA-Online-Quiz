@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { deleteQuestion, getAllQuestion } from "../../utils/QuizService";
+import { deleteQuestion, getAllQuestion } from "../../../utils/QuizService";
 
-const GetAllQuestions = () => {
+const GetAllQuiz = () => {
   const [questions, setQuestions] = useState([
     { id: "", question: "", correctAnswers: "", choices: [] },
   ]);
